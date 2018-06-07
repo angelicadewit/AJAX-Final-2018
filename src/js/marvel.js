@@ -23,9 +23,9 @@ var marvelModule = (function() {
 	
 	function generateSuccessHTMLOutput(response, $el) {
 		console.log("generateSuccessHTMLOutput response", response)
-		response.data.data.results.forEach(result => {
-			console.log(result.title)
-			$el.innerHTML += result.title;
+		$el.innerHTML += "<h2>Comic List:</h2>"
+		response.data.data.results.forEach(comic => {
+			$el.innerHTML += '<p> <a href="' + comic.urls[0].url + '" target="_blank">' + comic.title + '</a></p>'	
 	  	})
 	}
 

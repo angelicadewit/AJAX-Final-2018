@@ -25,6 +25,7 @@ TABLE OF CONTENTS:
 
 body {
 	background: #ccc;
+	font-family: 'Source Sans Pro', sans-serif;	
 	
 }
 
@@ -51,9 +52,14 @@ li{
 
 	.response-content{
 		display: flex;
+		
 
 		.description{
 			padding-left: 5px;
+		}
+
+		.comic-list{
+			padding-top: 20px;
 		}
 	}
 }
