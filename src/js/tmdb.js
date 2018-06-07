@@ -15,61 +15,63 @@ var movieModule = (function() {
 
 
     function searchMovie(queryTerm){
-      axios.get('https://api.themoviedb.org/3/discover/movie', {
-          params: {
-            'api_key': apikey,
-            'primary_release_year': queryTerm,
-            'with_keywords': '180547',
-          },
-          headers: {
-       
-          }
+        axios.get('https://api.themoviedb.org/3/discover/movie', {
+            params: {
+                'api_key': apikey,
+                'primary_release_year': queryTerm,
+                'with_keywords': '180547',
+            },
+            headers: {
+        
+            }
         }).then(function (response) {
             console.log('response:', response.data, response)
-            generateSuccessHTMLOutput(response);
-            sendDataToMarvel(response)
-          });    
+            response.data.results.forEach(movie => {
+                let $comicListEl = placeMovieInDOM(movie);
+                getComicsBasedOnMovieTitle(movie, $comicListEl);
+            });
+        });    
     }
     
-    function generateSuccessHTMLOutput(response) {
-      resultsEl.innerHTML = " ";
-      response.data.results.forEach(result => {
+    function getComicsBasedOnMovieTitle(movie, $comicListEl){
+        const queryTerm = movie.original_title.substring(0,7)
+        marvelModule.searchMarvel(queryTerm, $comicListEl)
+    }
+
+
+
+    function placeMovieInDOM(movie) {
         let $li = document.createElement("li")
         let $h2 = document.createElement("h2")
         $h2.classList.add("h2");
-        let $movieDesc = document.createElement("p")
+        let $desc = document.createElement("div")
+        $desc.classList.add("description");
         let $imgEl = document.createElement('img');
         let $contentDiv = document.createElement("div")
         $contentDiv.classList.add("response-content")
+        let $comicList = document.createElement("div")
+        $comicList.classList.add("comic-list");
 
-        $h2.innerHTML = result.original_title
+        $h2.innerHTML = movie.original_title
         $h2.classList.add("h2");
-        $imgEl.src = "http://image.tmdb.org/t/p/w342/" + result.poster_path;
-        $movieDesc.innerHTML = "<p>Movie Description:</p> <p>" + result.overview + "</p>"
+        $imgEl.src = "http://image.tmdb.org/t/p/w342/" + movie.poster_path;
+        $desc.innerHTML = "<p>Movie Description:</p> <p>" + movie.overview + "</p>"
 
         $li.appendChild($h2);
+        $contentDiv.appendChild($comicList);
         $contentDiv.appendChild($imgEl);
-        $contentDiv.appendChild($movieDesc);
+        $contentDiv.appendChild($desc);
         $li.appendChild($contentDiv)
 
 
         resultsEl.appendChild($li)
 
-      })
+        return $comicList;
     }
 
-    function sendDataToMarvel(response){
-        var charactersArray = []
-        response.data.results.forEach(result => {
-            const queryTerm = result.original_title.substring(0,7)
-            charactersArray.push(queryTerm)
-            marvelModule.searchMarvel(queryTerm)
-        })
-        console.log(charactersArray)
-    }
         
     return {
-        sendDataToMarvel: sendDataToMarvel
+        // sendDataToMarvel: sendDataToMarvel
     }
     
     

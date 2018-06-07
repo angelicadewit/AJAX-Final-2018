@@ -98,7 +98,7 @@ li .response-content {
 	display: flex;
 }
 
-li .response-content p {
+li .response-content .description {
 	padding-left: 5px;
 }
 

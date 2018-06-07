@@ -25,48 +25,48 @@ var movieModule = function () {
             headers: {}
         }).then(function (response) {
             console.log('response:', response.data, response);
-            generateSuccessHTMLOutput(response);
-            sendDataToMarvel(response);
+            response.data.results.forEach(function (movie) {
+                var $comicListEl = placeMovieInDOM(movie);
+                getComicsBasedOnMovieTitle(movie, $comicListEl);
+            });
         });
     }
 
-    function generateSuccessHTMLOutput(response) {
-        resultsEl.innerHTML = " ";
-        response.data.results.forEach(function (result) {
-            var $li = document.createElement("li");
-            var $h2 = document.createElement("h2");
-            $h2.classList.add("h2");
-            var $movieDesc = document.createElement("p");
-            var $imgEl = document.createElement('img');
-            var $contentDiv = document.createElement("div");
-            $contentDiv.classList.add("response-content");
-
-            $h2.innerHTML = result.original_title;
-            $h2.classList.add("h2");
-            $imgEl.src = "http://image.tmdb.org/t/p/w342/" + result.poster_path;
-            $movieDesc.innerHTML = "<p>Movie Description:</p> <p>" + result.overview + "</p>";
-
-            $li.appendChild($h2);
-            $contentDiv.appendChild($imgEl);
-            $contentDiv.appendChild($movieDesc);
-            $li.appendChild($contentDiv);
-
-            resultsEl.appendChild($li);
-        });
+    function getComicsBasedOnMovieTitle(movie, $comicListEl) {
+        var queryTerm = movie.original_title.substring(0, 7);
+        marvelModule.searchMarvel(queryTerm, $comicListEl);
     }
 
-    function sendDataToMarvel(response) {
-        var charactersArray = [];
-        response.data.results.forEach(function (result) {
-            var queryTerm = result.original_title.substring(0, 7);
-            charactersArray.push(queryTerm);
-            marvelModule.searchMarvel(queryTerm);
-        });
-        console.log(charactersArray);
+    function placeMovieInDOM(movie) {
+        var $li = document.createElement("li");
+        var $h2 = document.createElement("h2");
+        $h2.classList.add("h2");
+        var $desc = document.createElement("div");
+        $desc.classList.add("description");
+        var $imgEl = document.createElement('img');
+        var $contentDiv = document.createElement("div");
+        $contentDiv.classList.add("response-content");
+        var $comicList = document.createElement("div");
+        $comicList.classList.add("comic-list");
+
+        $h2.innerHTML = movie.original_title;
+        $h2.classList.add("h2");
+        $imgEl.src = "http://image.tmdb.org/t/p/w342/" + movie.poster_path;
+        $desc.innerHTML = "<p>Movie Description:</p> <p>" + movie.overview + "</p>";
+
+        $li.appendChild($h2);
+        $contentDiv.appendChild($comicList);
+        $contentDiv.appendChild($imgEl);
+        $contentDiv.appendChild($desc);
+        $li.appendChild($contentDiv);
+
+        resultsEl.appendChild($li);
+
+        return $comicList;
     }
 
     return {
-        sendDataToMarvel: sendDataToMarvel
+        // sendDataToMarvel: sendDataToMarvel
     };
 }();
 //# sourceMappingURL=tmdb.js.map
