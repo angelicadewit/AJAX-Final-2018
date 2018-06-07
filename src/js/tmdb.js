@@ -34,26 +34,26 @@ var movieModule = (function() {
     function generateSuccessHTMLOutput(response) {
       resultsEl.innerHTML = " ";
       response.data.results.forEach(result => {
-          let $li = document.createElement("li")
-          let $h2 = document.createElement("h2")
-          $h2.classList.add("h2");
-          let $movieDesc = document.createElement("p")
-          let $imgEl = document.createElement('img');
-          let $contentDiv = document.createElement("div")
-          $contentDiv.classList.add("response-content")
+        let $li = document.createElement("li")
+        let $h2 = document.createElement("h2")
+        $h2.classList.add("h2");
+        let $movieDesc = document.createElement("p")
+        let $imgEl = document.createElement('img');
+        let $contentDiv = document.createElement("div")
+        $contentDiv.classList.add("response-content")
 
-            $h2.innerHTML = result.original_title
-            $h2.classList.add("h2");
-            $imgEl.src = "http://image.tmdb.org/t/p/w342/" + result.poster_path;
-            $movieDesc.innerHTML = "<p>Movie Description:</p> <p>" + result.overview + "</p>"
-    
-          $li.appendChild($h2);
-          $contentDiv.appendChild($imgEl);
-          $contentDiv.appendChild($movieDesc);
-          $li.appendChild($contentDiv)
-    
-    
-          resultsEl.appendChild($li)
+        $h2.innerHTML = result.original_title
+        $h2.classList.add("h2");
+        $imgEl.src = "http://image.tmdb.org/t/p/w342/" + result.poster_path;
+        $movieDesc.innerHTML = "<p>Movie Description:</p> <p>" + result.overview + "</p>"
+
+        $li.appendChild($h2);
+        $contentDiv.appendChild($imgEl);
+        $contentDiv.appendChild($movieDesc);
+        $li.appendChild($contentDiv)
+
+
+        resultsEl.appendChild($li)
 
       })
     }
@@ -61,20 +61,18 @@ var movieModule = (function() {
     function sendDataToMarvel(response){
         var charactersArray = []
         response.data.results.forEach(result => {
-            const queryTerm = {
-                queryTerm: result.original_title,
-            }    
+            const queryTerm = result.original_title.substring(0,7)
             charactersArray.push(queryTerm)
-            })
-            console.log(charactersArray)
-            marvelModule.searchMarvel(charactersArray)
-        }
+            marvelModule.searchMarvel(queryTerm)
+        })
+        console.log(charactersArray)
+    }
         
-        return {
-            sendDataToMarvel: sendDataToMarvel
-        }
+    return {
+        sendDataToMarvel: sendDataToMarvel
+    }
     
     
     
-    }());
+}());
     

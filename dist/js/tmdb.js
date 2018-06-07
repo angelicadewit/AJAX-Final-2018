@@ -58,13 +58,11 @@ var movieModule = function () {
     function sendDataToMarvel(response) {
         var charactersArray = [];
         response.data.results.forEach(function (result) {
-            var queryTerm = {
-                queryTerm: result.original_title
-            };
+            var queryTerm = result.original_title.substring(0, 7);
             charactersArray.push(queryTerm);
+            marvelModule.searchMarvel(queryTerm);
         });
         console.log(charactersArray);
-        marvelModule.searchMarvel(charactersArray);
     }
 
     return {
