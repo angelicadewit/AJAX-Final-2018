@@ -27,6 +27,7 @@ var movieModule = (function() {
         }).then(function (response) {
             console.log('response:', response.data, response)
             generateSuccessHTMLOutput(response);
+            sendDataToMarvel(response)
           });    
     }
     
@@ -34,28 +35,44 @@ var movieModule = (function() {
       resultsEl.innerHTML = " ";
       response.data.results.forEach(result => {
           let $li = document.createElement("li")
-          let $h1 = document.createElement("h2")
+          let $h2 = document.createElement("h2")
+          $h2.classList.add("h2");
           let $movieDesc = document.createElement("p")
-        //   let $pCity = document.createElement("p")
-          const $imgEl = document.createElement('img');
+          let $imgEl = document.createElement('img');
+          let $contentDiv = document.createElement("div")
+          $contentDiv.classList.add("response-content")
 
-            $h1.innerHTML = result.original_title
+            $h2.innerHTML = result.original_title
+            $h2.classList.add("h2");
             $imgEl.src = "http://image.tmdb.org/t/p/w342/" + result.poster_path;
-        //   $imgEl.style.width = '300px';
-        //   $imgEl.style.height = '200px';
-            $movieDesc.innerHTML = result.overview
-        //   $pCity.style.marginBottom = "5px";
+            $movieDesc.innerHTML = "<p>Movie Description:</p> <p>" + result.overview + "</p>"
     
-          $li.appendChild($h1);
-          $li.appendChild($imgEl);
-          $li.appendChild($movieDesc);
-        //   $li.appendChild($pCity);
+          $li.appendChild($h2);
+          $contentDiv.appendChild($imgEl);
+          $contentDiv.appendChild($movieDesc);
+          $li.appendChild($contentDiv)
     
     
           resultsEl.appendChild($li)
 
       })
     }
+
+    function sendDataToMarvel(response){
+        var charactersArray = []
+        response.data.results.forEach(result => {
+            const queryTerm = {
+                queryTerm: result.original_title,
+            }    
+            charactersArray.push(queryTerm)
+            })
+            console.log(charactersArray)
+            marvelModule.searchMarvel(charactersArray)
+        }
+        
+        return {
+            sendDataToMarvel: sendDataToMarvel
+        }
     
     
     
