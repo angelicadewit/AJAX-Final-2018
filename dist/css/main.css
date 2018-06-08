@@ -73,7 +73,7 @@ table {
 }
 
 body {
-	background: url("/dist/img/backgroundps.jpg");
+	background: url("../img/backgroundps.jpg");
 	font-family: 'raleway', sans-serif;
 }
 

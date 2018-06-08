@@ -3,6 +3,9 @@
 var marvelModule = function () {
 
 	var API_KEY = "9bccd1a3d349ce45f26368e58cd92682";
+	// const API_KEY_TWO = 
+	// let ts = new Date().getTime();
+	// let hash = CryptoJS.MD5(ts + API_KEY + PUBLIC_KEY).toString();
 
 	var resultsEl = document.querySelector('.description');
 
