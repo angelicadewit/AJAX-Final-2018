@@ -119,6 +119,23 @@ h1{
 li{
 	padding-bottom: 30px;
 
+	a{
+		color: #107ABC;
+		transition: background 0.1s cubic-bezier(.33,.66,.66,1);
+
+		&:hover{
+			background: #107ABC;
+			color: white;
+			text-decoration: none;
+			font-weight: bold;
+		}
+
+		&:visited{
+			font-weight: bold;
+			text-decoration: none;
+		}
+	}
+
 	h2{
 		font-size: 1.2em;
 		padding-bottom: 10px;

@@ -160,6 +160,23 @@ li {
 	padding-bottom: 30px;
 }
 
+li a {
+	color: #107ABC;
+	transition: background 0.1s cubic-bezier(0.33, 0.66, 0.66, 1);
+}
+
+li a:hover {
+	background: #107ABC;
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+li a:visited {
+	font-weight: bold;
+	text-decoration: none;
+}
+
 li h2 {
 	font-size: 1.2em;
 	padding-bottom: 10px;
