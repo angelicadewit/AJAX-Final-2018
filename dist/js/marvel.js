@@ -17,16 +17,20 @@ var marvelModule = function () {
 		}).then(function (response) {
 			console.log('response:', queryTerm, response.data, response);
 			generateSuccessHTMLOutput(response, $el);
+			$el.querySelector(".loader").style.display = "none";
 		});
 		console.log(queryTerm);
 	}
 
 	function generateSuccessHTMLOutput(response, $el) {
 		console.log("generateSuccessHTMLOutput response", response);
-		$el.innerHTML += "<h2>Comic List:</h2>";
-		response.data.data.results.forEach(function (comic) {
-			$el.innerHTML += '<p> <a href="' + comic.urls[0].url + '" target="_blank">' + comic.title + '</a></p>';
-		});
+		if (response.data.data.results == 0) {
+			$el.innerHTML += '<p>There are no comics listed</p>';
+		} else {
+			response.data.data.results.forEach(function (comic) {
+				$el.innerHTML += '<p> <a href="' + comic.urls[0].url + '" target="_blank">' + comic.title + '</a></p>';
+			});
+		}
 	}
 
 	return {

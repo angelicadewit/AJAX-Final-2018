@@ -24,42 +24,83 @@ TABLE OF CONTENTS:
 }
 
 body {
-	background: #ccc;
-	font-family: 'Source Sans Pro', sans-serif;	
+	background: #000;
+	font-family: 'raleway', sans-serif;	
 	
 }
 
+$desktop-breakpoint: 768px;
 
+@mixin bp-desktop{
+	@media only screen and (min-width: $desktop-breakpoint){
+		@content;
+	}
+}
 
 
 /* 2. Content ================================= */
 
-.content {
-	position: relative;
-	font-family: sans-serif;
-	width: 90%;
-	max-width: 500px;
-	padding: 30px 20px 30px 30px;
+.header{
+	width: 100%;
+}
+
+.content{
+	margin: -60px 30px 0px 30px;
+	background: #ccc;
+	font-size: 1.2em;
+}
+
+.eventTestingForm{
+	padding-top: 20px;
+	text-align: center;
+}
+
+h1{
+	font-size: 5em;
+	padding-bottom: 10px;
+	text-align: center;
+	color: white;
+	text-shadow: 0px 0px 18px rgba(150, 150, 150, 1);
+	font-family: 'signika';
+	text-transform: uppercase;
+}
+
+.instructions{
+	 margin-left: 20px;
+}
+
+#results{
+	margin: 20px;
+	background: white;
 }
 
 li{
-	margin: 0px 20px 20px 20px;
+	padding-bottom: 30px;
 
 	h2{
-		font-size: 30px;
+		font-size: 1.2em;
 		padding-bottom: 10px;
+		font-family: 'signika';
 	}
 
-	.response-content{
-		display: flex;
-		
-
-		.description{
-			padding-left: 5px;
+	@include bp-desktop{
+		.response-content{
+			display: flex;	
 		}
+	}
+	.description{
+		padding-left: 5px;
+	}
 
-		.comic-list{
-			padding-top: 20px;
+	.comic-list{
+		padding-top: 20px;
+	}
+
+	.moviePoster{
+		width: 300px;
+		
+		@include bp-desktop{
+			width: 400px;
 		}
 	}
 }

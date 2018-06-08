@@ -26,10 +26,14 @@ var movieModule = function () {
         }).then(function (response) {
             console.log('response:', response.data, response);
             resultsEl.innerHTML = " ";
-            response.data.results.forEach(function (movie) {
-                var $comicListEl = placeMovieInDOM(movie);
-                getComicsBasedOnMovieTitle(movie, $comicListEl);
-            });
+            if (response.data.results == 0) {
+                resultsEl.innerHTML = "<h2>No Marvel Movies Came Out For This Year</h2>";
+            } else {
+                response.data.results.forEach(function (movie) {
+                    var $comicListEl = placeMovieInDOM(movie);
+                    getComicsBasedOnMovieTitle(movie, $comicListEl);
+                });
+            }
         });
     }
 
@@ -43,18 +47,18 @@ var movieModule = function () {
         var $li = document.createElement("li");
 
         var $h2 = document.createElement("h2");
-        $h2.classList.add("h2");
         var $desc = document.createElement("div");
         $desc.classList.add("description");
-        var $imgEl = document.createElement('img');
+        var $imgEl = document.createElement('div');
         var $contentDiv = document.createElement("div");
         $contentDiv.classList.add("response-content");
         var $comicList = document.createElement("div");
         $comicList.classList.add("comic-list");
 
-        $h2.innerHTML = movie.original_title;
-        $imgEl.src = "http://image.tmdb.org/t/p/w342/" + movie.poster_path;
-        $desc.innerHTML = "<p>Movie Description:</p> <p>" + movie.overview + "</p>";
+        $h2.innerHTML = '<h2>' + movie.original_title + '</h2>';
+        $imgEl.innerHTML = '<img src="http://image.tmdb.org/t/p/w500/' + movie.poster_path + '" alt="Movie Poster" class="moviePoster">';
+        $desc.innerHTML = "<h2>Movie Description:</h2> <p>" + movie.overview + "</p>";
+        $comicList.innerHTML = '<h2>Comic List:</h2><p class="loader"><img src="dist/img/loader.gif" class="loader"></p>';
 
         $li.appendChild($h2);
         $contentDiv.appendChild($imgEl);
