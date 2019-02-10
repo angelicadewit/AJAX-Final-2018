@@ -11,5 +11,6 @@ An AJAX project completed third quarter at [The Creative Circus](http://creative
 
 ## View the site
 
-[Live Copy](http://angelicadewit.com/marvel)
+[Live Site](http://angelicadewit.com/marvel)
+
 
