@@ -40,14 +40,25 @@ $desktop-breakpoint: 768px;
 
 /* 2. Content ================================= */
 
-.header{
+header{
+	// width: 100%;
+	background: url('../img/marvelbg.jpg') no-repeat;
+	background-size: cover;
 	width: 100%;
+	min-height: 300px;
+	background-position-x: 50%;
 }
 
 .content{
-	margin: -60px 30px 0px 30px;
+	margin: 0 auto;
+	margin-top: -10%;
+	max-width: 1400px;
 	background: rgba(255,255,255,.8);
 	font-size: 1.2em;
+
+	@include bp-desktop{
+		margin-top: 0%;
+	}
 }
 
 .eventTestingForm{
@@ -63,6 +74,8 @@ $desktop-breakpoint: 768px;
 		font-size: 1em;
 		padding: 10px;
 		border: 3px solid #3498db;
+		display: block;
+		margin: 0.5% auto;
 	}
 
 	.searchBtn {
@@ -72,13 +85,15 @@ $desktop-breakpoint: 768px;
 		background-image: -ms-linear-gradient(top, #3498db, #2980b9);
 		background-image: -o-linear-gradient(top, #3498db, #2980b9);
 		background-image: linear-gradient(to bottom, #3498db, #2980b9);
-		-webkit-border-radius: 28;
-		-moz-border-radius: 28;
-		border-radius: 28px;
+		-webkit-border-radius: 30;
+		-moz-border-radius: 30;
+		border-radius: 30px;
 		color: #ffffff;
 		font-size: 1em;
 		padding: 10px 20px 10px 20px;
 		text-decoration: none;
+		margin-bottom: 20px;
+		cursor: pointer;
 	  }
 	  
 	  .searchBtn:hover {
@@ -109,7 +124,12 @@ h1{
 }
 
 .instructions{
-	 margin-left: 20px;
+	padding: 2% 2% 0% 2%;
+	font-size: 1.25em;
+
+	span{
+		font-weight: bold;
+	}
 }
 
 #results{
@@ -119,9 +139,13 @@ h1{
 li{
 	padding-bottom: 30px;
 
+	p{
+		padding-bottom: 7px;
+	}
+	
 	a{
 		color: #107ABC;
-		transition: background 0.1s cubic-bezier(.33,.66,.66,1);
+		transition: background 0.2s cubic-bezier(.33,.66,.66,1);
 
 		&:hover{
 			background: #107ABC;
